@@ -6,7 +6,7 @@ family_members.forEach(function(member){ // we use this soit can bed printed as 
 	var content = fs.readFileSync('./Family/' + member, "utf8");// this will give the msg tht is inside the folder.
 	
 
-	console.log(content.split("\n").length); // content will be printed and then \n will give us number of each line after split.... 
+	console.log(content.split()); // content will be printed and then \n will give us number of each line after split.... 
 });
  
 console.log("------------------------------------------");

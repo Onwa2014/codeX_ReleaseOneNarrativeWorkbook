@@ -1,34 +1,40 @@
-var fs = require('fs');
- var files = fs.readdirSync('./files/week1/')
-  console.log(files);
-
-//files.forEach (function(fls){
-	//console.log(fls);
-
-var linesInFiles = fs.readFileSync('./files/week1/')
-  console.log(linesInFiles.split("\n").length);
 
 
 
-
-/*
-var fs = require('fs');
-var files = fs.readdir('./files/week1/', function(err, files){
-
-	files.forEach(function(fls){
-		var linesInFilesAsync = fs.readFileSync('./files/week1/' + fls, "utf8", function(err, files){
-			console.log(linesInFiles.split("\n"));	
+var findLines = function(folderName){
+	var fs = require('fs');
+	var filesInFolder = fs.readdirSync(folderName);
+	
+ 	var linesInFiles = [];
+	filesInFolder.forEach(function(fileName){ 
+		var fileContent = fs.readFileSync('./files/week1/' + fileName, "utf8");
+		var lines = fileContent.split('\n');
+		lines.forEach(function(line){
+			linesInFiles.push(line);
 		});
 	});
-});
+	
+	console.log(linesInFiles);
+
+	return linesInFiles;
+}
+
+exports.linesInFilesAsync = function(folderName, callback) {
+
+	var linesInFiles = findLines(folderName);
+	callback(null, linesInFiles);
+
+};
 
 
 
-console.log("done!");
+exports.linesInFiles = function(folderName){
 
-console.log(files);
+	var linesInFiles = findLines(folderName);
+	return linesInFiles;
 
-*/
+}; 
 
 
- 
+
+
