@@ -33,99 +33,45 @@ module.exports = function(filePath){
         callback(null, listOfProducts);
 
     };
-}
 
 
+    this.productsSold = function(callback){
+
+    	var filesInFolder = fs.readFileSync(filePath, "utf8"); // reading the file which contains  products and the prices 
+
+    	var rowsInFile = filesInFolder.split('\n'); // putting them in row because we can not loop in a string
+    	 console.log(rowsInFile.length);
+
+         
+    	var productQuantity = []; // we will quantgity here
+
+    	var quantityMap = {};
 
 
-		/*
-		var products = new products(filePath){
+    	rowsInFile.forEach(function(row){
 
-		};
-		*/
+            var fields = row.split(',');
 
-		/*filesInFolder.forEach(function(fileName){
-			var fileCont = fs.readFileSync('./files/' + fileName, "utf8");
-			   var lines = fileCont.split('\n');
-			    lines.forEach(function(line){
-			    	products.push(line[1].length);
-				});
-		});
+            var currentProduct = fields[1];
+    		var productQty = fields[2];
+            
+            console.log( " fields : " +  JSON.stringify(fields));
 
-		//return products;
-		callback(null, products);
-	};
-}
-	/*this.productsSold = function(err, callback){
-		return
-	}
-}
-*/
+            if( quantityMap[currentProduct] === undefined){
+                quantityMap[currentProduct] = 0;
+            }
+            quantityMap[currentProduct] = quantityMap[currentProduct] +  Number(productQty);
+            
+
+        });
 
 
+        
+        console.log( "-----> " + JSON.stringify(quantityMap));
+        callback(null, quantityMap);
+    };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	//var listInFolder = fs.readdirSync(folderName); // this should return flder(week1) and file products csv
-
-	/*
-	var list = [] // empty array we will push our list here
-	listInFolder.forEach(function(prd) {
-	 	var fileCont = fs.readFileSync('./files/' + prd ,"utf8"); //read list tht is in the file
-	 	var lines = fileCont.split('\n').length;
-	 	lines.forEach(function(line){
-	 		list.push(line);
-	 	});
-	});
-	*/
-
-	 //return list[1].length;
-
-//};
-
-/*
-exports.productNamesAsync = function(folderName, callback) {
-	var list = products(folderName);
-	callback(null, list);
-
+        
+        
+    
 };
-*/
-/*
-exports.linesInFilesAsync = function(folderName, callback) {
-
-	var linesInFiles = findLines(folderName);
-	callback(null, linesInFiles);
-
-}; */
-/*
-var fs = require('fs');// we are calling their modules so we can use them....
-var fileList = fs.readdirSync('./files') // this line we are reading into the folder.... 
-console.log(fileList);// prints text files inside Family folder
-
-var list = []
-fileList.forEach(function(member){ // we use this soit can bed printed as a list not an array
-	var content = fs.readFileSync('./files/' + member, "utf8");// this will give the msg tht is inside the folder.
-	
-
-	console.log(content.split('\n')); // content will be printed and then \n will give us number of each line after split.... 
-	list.push(content[1]);
-});
-
-console.log("list");*/
